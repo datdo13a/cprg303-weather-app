@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         header: {
         width: '100%',
         padding: 20,
-        backgroundColor: '#007bff',
+        backgroundColor: '#235EAE',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         position: 'absolute',
