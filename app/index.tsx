@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import CityHeader from "@/components/CityHeader";
+import { StyleSheet, View } from "react-native";
 import Header from "../components/Header";
 
 export default function Index() {
@@ -7,7 +8,7 @@ export default function Index() {
       style={styles.container}
     >
       <Header title="Weather App"/>
-      <Text>Weather App</Text>
+      <CityHeader />
     </View>
   );
 }
@@ -17,5 +18,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center", 
+    backgroundColor: "#007bff",
   }
 });
