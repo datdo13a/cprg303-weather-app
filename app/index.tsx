@@ -14,7 +14,7 @@ import { getWeatherIcon } from "@/utils/weatherUtils";
 
 export default function Index() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null);
   const [forecast, setForecast] = useState<ForecastItem[]>([]);
   const [hourlyForecast, setHourlyForecast] = useState<HourlyForecast[]>([]);
@@ -27,14 +27,10 @@ export default function Index() {
       const forecastData = await fetchDailyForecast(city, temperatureUnit);
       const hourlyData = await fetchHourlyForecast(city, temperatureUnit, 6);
       
-      console.log("Weather data:", weather);
-      console.log("Hourly forecast data:", hourlyData);
-      
       if (weather) setCurrentWeather(weather);
       if (forecastData) setForecast(forecastData);
       if (hourlyData && hourlyData.length > 0) {
         setHourlyForecast(hourlyData);
-        console.log("Hourly forecast set:", hourlyData);
       }
     } catch (error) {
       console.error("Error loading weather data:", error);
@@ -44,8 +40,10 @@ export default function Index() {
   };
 
   useEffect(() => {
-    loadWeatherData(selectedCity);
-  }, [selectedCity]);
+    if (selectedCity) {
+      loadWeatherData(selectedCity);
+    }
+  }, [selectedCity, temperatureUnit]);
 
   if (loading) {
     return <LoadingScreen />;

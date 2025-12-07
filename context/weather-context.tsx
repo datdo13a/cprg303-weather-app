@@ -23,6 +23,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [temperatureUnit, setTemperatureUnitState] = useState<"metric" | "imperial">("metric");
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [selectedCity, setSelectedCityState] = useState<string>("Calgary");
+  const [isLoading, setIsLoading] = useState(true);
 
   // Load saved data from AsyncStorage on mount
   useEffect(() => {
@@ -46,13 +47,15 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
           setRecentSearches(JSON.parse(searchesData));
         }
 
-        // Load selected city
+        // Load selected city - this should be loaded last to ensure it overrides the default
         const selectedCityData = await AsyncStorage.getItem(STORAGE_KEYS.SELECTED_CITY);
         if (selectedCityData) {
           setSelectedCityState(selectedCityData);
         }
       } catch (error) {
         console.error("Error loading weather data from storage:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     loadData();

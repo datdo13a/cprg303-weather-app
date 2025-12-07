@@ -20,8 +20,7 @@ interface CityWeather {
 
 export default function Cities() {
   const router = useRouter();
-  const { savedLocations, removeLocation, temperatureUnit, setSelectedCity, clearLocations } = useWeather();
-  const [selectedCity, setLocalSelectedCity] = useState<string | null>(null);
+  const { savedLocations, removeLocation, temperatureUnit, setSelectedCity, clearLocations, selectedCity: globalSelectedCity } = useWeather();
   const [citiesWeather, setCitiesWeather] = useState<CityWeather[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -118,7 +117,7 @@ export default function Cities() {
                 router.push('/');
               }}
               onDelete={() => removeLocation(cityWeather.id)}
-              isSelected={selectedCity === cityWeather.id}
+              isSelected={globalSelectedCity === cityWeather.name}
             />
           ))
         )}
@@ -149,13 +148,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   searchBar: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 24,
+    width: '15%',
   },
   searchBarText: {
     color: '#fff',
