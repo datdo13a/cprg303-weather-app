@@ -1,9 +1,10 @@
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { fetchWeatherByCity, fetchDailyForecast, fetchHourlyForecast } from "@/api/weather-service";
 import { CurrentWeather, ForecastItem, HourlyForecast } from "@/types";
 import { useWeather } from "@/context/weather-context";
+import { Ionicons } from "@expo/vector-icons";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import WeatherHeader from "@/components/WeatherHeader";
@@ -12,13 +13,22 @@ import WeeklyForecast from "@/components/WeeklyForecast";
 import MainTemperature from "@/components/MainTemperature";
 import { getWeatherIcon } from "@/utils/weatherUtils";
 
-export default function Index() {
+export default function CityDetail() {
   const router = useRouter();
+  const params = useLocalSearchParams();
+  const cityName = params.cityName as string;
+
   const [loading, setLoading] = useState(false);
   const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null);
   const [forecast, setForecast] = useState<ForecastItem[]>([]);
   const [hourlyForecast, setHourlyForecast] = useState<HourlyForecast[]>([]);
-  const { temperatureUnit, selectedCity } = useWeather();
+  const { temperatureUnit } = useWeather();
+
+  useEffect(() => {
+    if (cityName) {
+      loadWeatherData(cityName);
+    }
+  }, [cityName]);
 
   const loadWeatherData = async (city: string) => {
     try {
@@ -27,14 +37,10 @@ export default function Index() {
       const forecastData = await fetchDailyForecast(city, temperatureUnit);
       const hourlyData = await fetchHourlyForecast(city, temperatureUnit, 6);
       
-      console.log("Weather data:", weather);
-      console.log("Hourly forecast data:", hourlyData);
-      
       if (weather) setCurrentWeather(weather);
       if (forecastData) setForecast(forecastData);
       if (hourlyData && hourlyData.length > 0) {
         setHourlyForecast(hourlyData);
-        console.log("Hourly forecast set:", hourlyData);
       }
     } catch (error) {
       console.error("Error loading weather data:", error);
@@ -42,10 +48,6 @@ export default function Index() {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    loadWeatherData(selectedCity);
-  }, [selectedCity]);
 
   if (loading) {
     return <LoadingScreen />;
@@ -67,10 +69,18 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <WeatherHeader
-          cityName={currentWeather.city}
-          date={new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'numeric', day: 'numeric', year: 'numeric' })}
-        />
+        {/* Header with Back Button */}
+        <View style={styles.header}>
+          <View style={styles.headerTop}>
+            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+              <Ionicons name="arrow-back" size={28} color="#fff" />
+            </TouchableOpacity>
+            <WeatherHeader
+              cityName={currentWeather.city}
+              date={new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'numeric', day: 'numeric', year: 'numeric' })}
+            />
+          </View>
+        </View>
 
         <MainTemperature
           temperature={currentWeather.weather.temperature}
@@ -107,6 +117,22 @@ const styles = StyleSheet.create({
   centerContent: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  header: {
+    paddingTop: 20,
+    paddingHorizontal: 24,
+    marginBottom: 20,
+    alignItems: 'center',
+    width: '100%',
+  },
+  headerTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+  },
+  backButton: {
+    padding: 0,
   },
   errorText: {
     color: "#fff",
