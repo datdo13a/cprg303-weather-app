@@ -1,14 +1,21 @@
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
-import { useWeather } from "@/context/weather-context";
-import { useState, useEffect } from "react";
 import { fetchWeatherByCity } from "@/api/weather-service";
+import CityCard from "@/components/CityCard";
+import EmptyState from "@/components/EmptyState";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
-import EmptyState from "@/components/EmptyState";
-import CityCard from "@/components/CityCard";
+import { useWeather } from "@/context/weather-context";
 import { getWeatherIcon } from "@/utils/weatherUtils";
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 interface CityWeather {
   id: string;
@@ -20,7 +27,13 @@ interface CityWeather {
 
 export default function Cities() {
   const router = useRouter();
-  const { savedLocations, removeLocation, temperatureUnit, setSelectedCity, clearLocations } = useWeather();
+  const {
+    savedLocations,
+    removeLocation,
+    temperatureUnit,
+    setSelectedCity,
+    clearLocations,
+  } = useWeather();
   const [selectedCity, setLocalSelectedCity] = useState<string | null>(null);
   const [citiesWeather, setCitiesWeather] = useState<CityWeather[]>([]);
   const [loading, setLoading] = useState(false);
@@ -29,13 +42,16 @@ export default function Cities() {
   useEffect(() => {
     const fetchAllWeather = async () => {
       if (savedLocations.length === 0) return;
-      
+
       setLoading(true);
       const weatherData: CityWeather[] = [];
-      
+
       for (const location of savedLocations) {
         try {
-          const weather = await fetchWeatherByCity(location.city, temperatureUnit);
+          const weather = await fetchWeatherByCity(
+            location.city,
+            temperatureUnit
+          );
           if (weather) {
             weatherData.push({
               id: location.id,
@@ -49,7 +65,7 @@ export default function Cities() {
           console.error(`Error fetching weather for ${location.city}:`, error);
         }
       }
-      
+
       setCitiesWeather(weatherData);
       setLoading(false);
     };
@@ -64,67 +80,76 @@ export default function Cities() {
 
   return (
     <View style={styles.container}>
-      {/* Header with Search Bar */}
-      <View style={styles.header}>
-        <TouchableOpacity 
-          style={styles.backButton}
-          onPress={() => router.back()}
-        >
-          <Ionicons name="arrow-back" size={28} color="#fff" />
-        </TouchableOpacity>
-          <TouchableOpacity 
+      <LinearGradient
+        colors={["#a1c4fd", "#c2e9fb"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={styles.container}
+      >
+        {/* Header with Search Bar */}
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => router.back()}
+          >
+            <Ionicons name="arrow-back" size={28} color="#fff" />
+          </TouchableOpacity>
+          <TouchableOpacity
             style={styles.searchBar}
-            onPress={() => router.push('/search')}
+            onPress={() => router.push("/search")}
           >
             <Ionicons name="search" size={20} color="#fff" />
             <Text style={styles.searchBarText}>Search for city...</Text>
           </TouchableOpacity>
           {savedLocations.length > 0 && (
-            <TouchableOpacity 
-              onPress={clearLocations} 
+            <TouchableOpacity
+              onPress={clearLocations}
               style={[
                 styles.clearButtonContainer,
-                savedLocations.length === 0 && styles.clearButtonDisabled
+                savedLocations.length === 0 && styles.clearButtonDisabled,
               ]}
             >
               <Text style={styles.clearButtonText}>Clear</Text>
             </TouchableOpacity>
           )}
-      </View>
+        </View>
 
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {loading ? (
-          <LoadingScreen />
-        ) : savedLocations.length === 0 ? (
-          <EmptyState
-            icon="location-outline"
-            message="No saved cities yet. Search for a city to add it to your list."
-            actionLabel="Add City"
-            onAction={() => router.push('/search')}
-          />
-        ) : (
-          citiesWeather.map((cityWeather) => (
-            <CityCard
-              key={cityWeather.id}
-              cityName={cityWeather.name}
-              country={cityWeather.country}
-              temperature={cityWeather.temperature}
-              condition={cityWeather.condition}
-              temperatureUnit={temperatureUnit}
-              getWeatherIcon={getWeatherIcon}
-              onPress={() => router.push(`/city/${cityWeather.name}`)}
-              onSetHome={() => {
-                setSelectedCity(cityWeather.name);
-                router.push('/');
-              }}
-              onDelete={() => removeLocation(cityWeather.id)}
-              isSelected={selectedCity === cityWeather.id}
+        <ScrollView
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+        >
+          {loading ? (
+            <LoadingScreen />
+          ) : savedLocations.length === 0 ? (
+            <EmptyState
+              icon="location-outline"
+              message="No saved cities yet. Search for a city to add it to your list."
+              actionLabel="Add City"
+              onAction={() => router.push("/search")}
             />
-          ))
-        )}
-      </ScrollView>
-
-      <Footer />
+          ) : (
+            citiesWeather.map((cityWeather) => (
+              <CityCard
+                key={cityWeather.id}
+                cityName={cityWeather.name}
+                country={cityWeather.country}
+                temperature={cityWeather.temperature}
+                condition={cityWeather.condition}
+                temperatureUnit={temperatureUnit}
+                getWeatherIcon={getWeatherIcon}
+                onPress={() => router.push(`/city/${cityWeather.name}`)}
+                onSetHome={() => {
+                  setSelectedCity(cityWeather.name);
+                  router.push("/");
+                }}
+                onDelete={() => removeLocation(cityWeather.id)}
+                isSelected={selectedCity === cityWeather.id}
+              />
+            ))
+          )}
+        </ScrollView>
+        <Footer />
+      </LinearGradient>
     </View>
   );
 }
@@ -132,12 +157,11 @@ export default function Cities() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2E5F7C',
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 24,
     paddingTop: 50,
     paddingBottom: 20,
@@ -145,42 +169,38 @@ const styles = StyleSheet.create({
   },
   backButton: {
     padding: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   searchBar: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 24,
   },
   searchBarText: {
-    color: '#fff',
+    color: "#fff",
     marginLeft: 8,
   },
   clearButtonContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
     elevation: 8,
   },
   clearButtonDisabled: {
-    backgroundColor: 'rgba(128, 128, 128, 0.3)',
+    backgroundColor: "rgba(128, 128, 128, 0.3)",
     shadowOpacity: 0,
     elevation: 0,
   },
   clearButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   scrollView: {
     flex: 1,

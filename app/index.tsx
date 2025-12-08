@@ -80,21 +80,23 @@ export default function Index() {
         style={styles.container}
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          <WeatherHeader
-            cityName={currentWeather.city}
-            date={new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              month: "numeric",
-              day: "numeric",
-              year: "numeric",
-            })}
-          />
+          <View style={styles.cityTempContainer}>
+            <WeatherHeader
+              cityName={currentWeather.city}
+              date={new Date().toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "numeric",
+                day: "numeric",
+                year: "numeric",
+              })}
+            />
 
-          <MainTemperature
-            temperature={currentWeather.weather.temperature}
-            condition={currentWeather.weather.condition}
-            temperatureUnit={temperatureUnit}
-          />
+            <MainTemperature
+              temperature={currentWeather.weather.temperature}
+              condition={currentWeather.weather.condition}
+              temperatureUnit={temperatureUnit}
+            />
+          </View>
 
           <HourlyForecastList
             hourlyData={hourlyForecast}
