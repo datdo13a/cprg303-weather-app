@@ -81,7 +81,7 @@ export default function Cities() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={["#a1c4fd", "#c2e9fb"]}
+        colors={["#e0c3fc", "#8ec5fc"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 0.5, y: 1 }}
         style={styles.container}
