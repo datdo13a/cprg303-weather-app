@@ -1,21 +1,28 @@
-import { StyleSheet, View, Text, ScrollView } from "react-native";
-import { useEffect, useState } from "react";
-import { useRouter } from "expo-router";
-import { fetchWeatherByCity, fetchDailyForecast, fetchHourlyForecast } from "@/api/weather-service";
-import { CurrentWeather, ForecastItem, HourlyForecast } from "@/types";
-import { useWeather } from "@/context/weather-context";
+import {
+  fetchDailyForecast,
+  fetchHourlyForecast,
+  fetchWeatherByCity,
+} from "@/api/weather-service";
 import Footer from "@/components/Footer";
-import LoadingScreen from "@/components/LoadingScreen";
-import WeatherHeader from "@/components/WeatherHeader";
 import HourlyForecastList from "@/components/HourlyForecastList";
-import WeeklyForecast from "@/components/WeeklyForecast";
+import LoadingScreen from "@/components/LoadingScreen";
 import MainTemperature from "@/components/MainTemperature";
+import WeatherHeader from "@/components/WeatherHeader";
+import WeeklyForecast from "@/components/WeeklyForecast";
+import { useWeather } from "@/context/weather-context";
+import { CurrentWeather, ForecastItem, HourlyForecast } from "@/types";
 import { getWeatherIcon } from "@/utils/weatherUtils";
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null);
+  const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(
+    null
+  );
   const [forecast, setForecast] = useState<ForecastItem[]>([]);
   const [hourlyForecast, setHourlyForecast] = useState<HourlyForecast[]>([]);
   const { temperatureUnit, selectedCity } = useWeather();
@@ -26,10 +33,10 @@ export default function Index() {
       const weather = await fetchWeatherByCity(city, temperatureUnit);
       const forecastData = await fetchDailyForecast(city, temperatureUnit);
       const hourlyData = await fetchHourlyForecast(city, temperatureUnit, 6);
-      
+
       console.log("Weather data:", weather);
       console.log("Hourly forecast data:", hourlyData);
-      
+
       if (weather) setCurrentWeather(weather);
       if (forecastData) setForecast(forecastData);
       if (hourlyData && hourlyData.length > 0) {
@@ -61,36 +68,45 @@ export default function Index() {
   }
 
   const handleSearchPress = () => {
-    router.push('/search');
+    router.push("/search");
   };
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <WeatherHeader
-          cityName={currentWeather.city}
-          date={new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'numeric', day: 'numeric', year: 'numeric' })}
-        />
+      <LinearGradient
+        colors={["#a1c4fd", "#c2e9fb"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={styles.container}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <WeatherHeader
+            cityName={currentWeather.city}
+            date={new Date().toLocaleDateString("en-US", {
+              weekday: "long",
+              month: "numeric",
+              day: "numeric",
+              year: "numeric",
+            })}
+          />
 
-        <MainTemperature
-          temperature={currentWeather.weather.temperature}
-          condition={currentWeather.weather.condition}
-          temperatureUnit={temperatureUnit}
-        />
+          <MainTemperature
+            temperature={currentWeather.weather.temperature}
+            condition={currentWeather.weather.condition}
+            temperatureUnit={temperatureUnit}
+          />
 
-        <HourlyForecastList
-          hourlyData={hourlyForecast}
-          temperatureUnit={temperatureUnit}
-          getWeatherIcon={getWeatherIcon}
-        />
+          <HourlyForecastList
+            hourlyData={hourlyForecast}
+            temperatureUnit={temperatureUnit}
+            getWeatherIcon={getWeatherIcon}
+          />
 
-        <WeeklyForecast
-          forecast={forecast}
-          getWeatherIcon={getWeatherIcon}
-        />
-      </ScrollView>
+          <WeeklyForecast forecast={forecast} getWeatherIcon={getWeatherIcon} />
+        </ScrollView>
 
-      <Footer />
+        <Footer />
+      </LinearGradient>
     </View>
   );
 }
@@ -98,11 +114,10 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2E5F7C',
   },
   scrollContent: {
     flexGrow: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   centerContent: {
     justifyContent: "center",
@@ -114,9 +129,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   date: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     marginTop: 4,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
