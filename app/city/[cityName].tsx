@@ -1,17 +1,21 @@
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { useEffect, useState } from "react";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { fetchWeatherByCity, fetchDailyForecast, fetchHourlyForecast } from "@/api/weather-service";
-import { CurrentWeather, ForecastItem, HourlyForecast } from "@/types";
-import { useWeather } from "@/context/weather-context";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  fetchDailyForecast,
+  fetchHourlyForecast,
+  fetchWeatherByCity,
+} from "@/api/weather-service";
 import Footer from "@/components/Footer";
-import LoadingScreen from "@/components/LoadingScreen";
-import WeatherHeader from "@/components/WeatherHeader";
 import HourlyForecastList from "@/components/HourlyForecastList";
-import WeeklyForecast from "@/components/WeeklyForecast";
+import LoadingScreen from "@/components/LoadingScreen";
 import MainTemperature from "@/components/MainTemperature";
+import WeatherHeader from "@/components/WeatherHeader";
+import WeeklyForecast from "@/components/WeeklyForecast";
+import { useWeather } from "@/context/weather-context";
+import { CurrentWeather, ForecastItem, HourlyForecast } from "@/types";
 import { getWeatherIcon } from "@/utils/weatherUtils";
+import { Ionicons } from "@expo/vector-icons";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
 export default function CityDetail() {
   const router = useRouter();
@@ -19,7 +23,9 @@ export default function CityDetail() {
   const cityName = params.cityName as string;
 
   const [loading, setLoading] = useState(false);
-  const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null);
+  const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(
+    null
+  );
   const [forecast, setForecast] = useState<ForecastItem[]>([]);
   const [hourlyForecast, setHourlyForecast] = useState<HourlyForecast[]>([]);
   const { temperatureUnit } = useWeather();
@@ -36,7 +42,7 @@ export default function CityDetail() {
       const weather = await fetchWeatherByCity(city, temperatureUnit);
       const forecastData = await fetchDailyForecast(city, temperatureUnit);
       const hourlyData = await fetchHourlyForecast(city, temperatureUnit, 6);
-      
+
       if (weather) setCurrentWeather(weather);
       if (forecastData) setForecast(forecastData);
       if (hourlyData && hourlyData.length > 0) {
@@ -56,14 +62,14 @@ export default function CityDetail() {
   if (!currentWeather) {
     return (
       <View style={[styles.container, styles.centerContent]}>
-        <Text style={styles.errorText}>No weather data available</Text>
-        <Text style={styles.date}>Check your API key or try again later</Text>
+        {/* <Text style={styles.errorText}>No weather data available</Text>
+        <Text style={styles.date}>Check your API key or try again later</Text> */}
       </View>
     );
   }
 
   const handleSearchPress = () => {
-    router.push('/search');
+    router.push("/search");
   };
 
   return (
@@ -72,12 +78,20 @@ export default function CityDetail() {
         {/* Header with Back Button */}
         <View style={styles.header}>
           <View style={styles.headerTop}>
-            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <TouchableOpacity
+              onPress={() => router.back()}
+              style={styles.backButton}
+            >
               <Ionicons name="arrow-back" size={28} color="#fff" />
             </TouchableOpacity>
             <WeatherHeader
               cityName={currentWeather.city}
-              date={new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'numeric', day: 'numeric', year: 'numeric' })}
+              date={new Date().toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "numeric",
+                day: "numeric",
+                year: "numeric",
+              })}
             />
           </View>
         </View>
@@ -94,10 +108,7 @@ export default function CityDetail() {
           getWeatherIcon={getWeatherIcon}
         />
 
-        <WeeklyForecast
-          forecast={forecast}
-          getWeatherIcon={getWeatherIcon}
-        />
+        <WeeklyForecast forecast={forecast} getWeatherIcon={getWeatherIcon} />
       </ScrollView>
 
       <Footer />
@@ -108,11 +119,11 @@ export default function CityDetail() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2E5F7C',
+    backgroundColor: "#2E5F7C",
   },
   scrollContent: {
     flexGrow: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   centerContent: {
     justifyContent: "center",
@@ -122,13 +133,13 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 24,
     marginBottom: 20,
-    alignItems: 'center',
-    width: '100%',
+    alignItems: "center",
+    width: "100%",
   },
   headerTop: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 12,
   },
   backButton: {
@@ -140,9 +151,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   date: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     marginTop: 4,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

@@ -1,15 +1,18 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { ForecastItem } from '@/types';
+import { ForecastItem } from "@/types";
+import { StyleSheet, Text, View } from "react-native";
 
 interface WeeklyForecastProps {
   forecast: ForecastItem[];
   getWeatherIcon: (condition: string) => string;
 }
 
-export default function WeeklyForecast({ forecast, getWeatherIcon }: WeeklyForecastProps) {
+export default function WeeklyForecast({
+  forecast,
+  getWeatherIcon,
+}: WeeklyForecastProps) {
   const formatDay = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { weekday: 'short' });
+    return date.toLocaleDateString("en-US", { weekday: "short" });
   };
 
   return (
@@ -17,12 +20,18 @@ export default function WeeklyForecast({ forecast, getWeatherIcon }: WeeklyForec
       {forecast.slice(0, 7).map((item, index) => (
         <View key={index} style={styles.weeklyItem}>
           <View style={styles.weeklyLeft}>
-            <Text style={styles.weeklyIcon}>{getWeatherIcon(item.condition)}</Text>
+            <Text style={styles.weeklyIcon}>
+              {getWeatherIcon(item.condition)}
+            </Text>
             <Text style={styles.weeklyDay}>{formatDay(item.date)}</Text>
           </View>
           <View style={styles.weeklyTempContainer}>
-            <Text style={styles.weeklyTemp}>H: {Math.round(item.temp.max)}°</Text>
-            <Text style={styles.weeklyTemp}>L: {Math.round(item.temp.min)}°</Text>
+            <Text style={styles.weeklyTemp}>
+              H: {Math.round(item.temp.max)}°
+            </Text>
+            <Text style={styles.weeklyTemp}>
+              L: {Math.round(item.temp.min)}°
+            </Text>
           </View>
         </View>
       ))}
@@ -32,44 +41,39 @@ export default function WeeklyForecast({ forecast, getWeatherIcon }: WeeklyForec
 
 const styles = StyleSheet.create({
   weeklyContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     marginHorizontal: 20,
     borderRadius: 20,
     padding: 16,
-    width: '90%',
+    width: "90%",
     maxWidth: 400,
-    alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    alignSelf: "center",
   },
   weeklyItem: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 12,
     gap: 50,
   },
   weeklyLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   weeklyIcon: {
     fontSize: 28,
     marginRight: 12,
   },
   weeklyDay: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
   weeklyTempContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
   },
   weeklyTemp: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     minWidth: 45,
   },
