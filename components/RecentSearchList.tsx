@@ -1,5 +1,11 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 interface RecentSearchListProps {
   searches: string[];
@@ -7,7 +13,11 @@ interface RecentSearchListProps {
   onClear: () => void;
 }
 
-export default function RecentSearchList({ searches, onSelectSearch, onClear }: RecentSearchListProps) {
+export default function RecentSearchList({
+  searches,
+  onSelectSearch,
+  onClear,
+}: RecentSearchListProps) {
   if (searches.length === 0) return null;
 
   return (
@@ -36,29 +46,29 @@ export default function RecentSearchList({ searches, onSelectSearch, onClear }: 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 24,
-    width: '90%',
+    width: "90%",
     maxWidth: 400,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 16,
   },
   title: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   clearButton: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     opacity: 0.8,
   },
   item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -66,7 +76,7 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
 });

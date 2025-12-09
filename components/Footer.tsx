@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
-import { useRouter } from 'expo-router';
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Footer() {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -14,7 +14,7 @@ export default function Footer() {
 
   return (
     <>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.floatingButton}
         onPress={() => setMenuVisible(true)}
       >
@@ -27,37 +27,37 @@ export default function Footer() {
         animationType="fade"
         onRequestClose={() => setMenuVisible(false)}
       >
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.modalOverlay}
           activeOpacity={1}
           onPress={() => setMenuVisible(false)}
         >
           <View style={styles.menuContainer}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => handleNavigation('/')}
+              onPress={() => handleNavigation("/")}
             >
               <Ionicons name="home" size={24} color="#fff" />
               <Text style={styles.menuText}>Home</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => handleNavigation('/cities')}
+              onPress={() => handleNavigation("/cities")}
             >
               <Ionicons name="list" size={24} color="#fff" />
               <Text style={styles.menuText}>Cities</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => handleNavigation('/search')}
+              onPress={() => handleNavigation("/search")}
             >
               <Ionicons name="search" size={24} color="#fff" />
               <Text style={styles.menuText}>Search</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[styles.menuItem, styles.closeButton]}
               onPress={() => setMenuVisible(false)}
             >
@@ -73,17 +73,17 @@ export default function Footer() {
 
 const styles = StyleSheet.create({
   floatingButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 30,
     right: 20,
-    backgroundColor: '#3B7FA0',
+    backgroundColor: "rgba(52, 52, 52, 0.5)",
     width: 60,
     height: 60,
     borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     elevation: 8,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
@@ -91,36 +91,34 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
   },
   menuContainer: {
-    backgroundColor: '#3B7FA0',
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
     borderRadius: 20,
     padding: 20,
     minWidth: 250,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
     marginBottom: 100,
     marginRight: 20,
   },
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 16,
     paddingHorizontal: 20,
     gap: 16,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+    borderBottomColor: "rgba(255, 255, 255, 0.1)",
   },
   closeButton: {
     borderBottomWidth: 0,
     marginTop: 8,
   },
   menuText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: "500",
   },
 });

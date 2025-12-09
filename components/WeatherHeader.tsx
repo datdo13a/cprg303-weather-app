@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from "react-native";
 
 interface WeatherHeaderProps {
   cityName: string;
@@ -6,12 +6,14 @@ interface WeatherHeaderProps {
 }
 
 export default function WeatherHeader({ cityName, date }: WeatherHeaderProps) {
-  const displayDate = date || new Date().toLocaleDateString('en-US', { 
-    weekday: 'long', 
-    month: 'numeric', 
-    day: 'numeric', 
-    year: 'numeric' 
-  });
+  const displayDate =
+    date ||
+    new Date().toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "numeric",
+      day: "numeric",
+      year: "numeric",
+    });
 
   return (
     <View style={styles.header}>
@@ -23,21 +25,21 @@ export default function WeatherHeader({ cityName, date }: WeatherHeaderProps) {
 
 const styles = StyleSheet.create({
   header: {
-    paddingTop: 20,
+    paddingTop: 100,
     paddingHorizontal: 24,
-    marginBottom: 20,
-    alignItems: 'center',
+
+    alignItems: "center",
   },
   cityName: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 36,
-    fontWeight: '400',
-    textAlign: 'center',
+    fontWeight: "400",
+    textAlign: "center",
   },
   date: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     marginTop: 4,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

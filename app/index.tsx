@@ -74,27 +74,30 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={["#a1c4fd", "#c2e9fb"]}
+        colors={["#3D4E81", "#5753C9", "#6E7FF3"]}
+        locations={[0, 0.48, 1]}
         start={{ x: 0, y: 0 }}
-        end={{ x: 0.5, y: 1 }}
+        end={{ x: 1, y: 1 }}
         style={styles.container}
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          <WeatherHeader
-            cityName={currentWeather.city}
-            date={new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              month: "numeric",
-              day: "numeric",
-              year: "numeric",
-            })}
-          />
+          <View style={styles.cityTempContainer}>
+            <WeatherHeader
+              cityName={currentWeather.city}
+              date={new Date().toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "numeric",
+                day: "numeric",
+                year: "numeric",
+              })}
+            />
 
-          <MainTemperature
-            temperature={currentWeather.weather.temperature}
-            condition={currentWeather.weather.condition}
-            temperatureUnit={temperatureUnit}
-          />
+            <MainTemperature
+              temperature={currentWeather.weather.temperature}
+              condition={currentWeather.weather.condition}
+              temperatureUnit={temperatureUnit}
+            />
+          </View>
 
           <HourlyForecastList
             hourlyData={hourlyForecast}
@@ -123,6 +126,10 @@ const styles = StyleSheet.create({
   centerContent: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  cityTempContainer: {
+    alignItems: "center",
+    width: "100%",
   },
   errorText: {
     color: "#fff",

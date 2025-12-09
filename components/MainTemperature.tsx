@@ -1,16 +1,20 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from "react-native";
 
 interface MainTemperatureProps {
   temperature: number;
   condition: string;
-  temperatureUnit: 'metric' | 'imperial';
+  temperatureUnit: "metric" | "imperial";
 }
 
-export default function MainTemperature({ temperature, condition, temperatureUnit }: MainTemperatureProps) {
+export default function MainTemperature({
+  temperature,
+  condition,
+  temperatureUnit,
+}: MainTemperatureProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.temp}>
-        {Math.round(temperature)}°{temperatureUnit === 'metric' ? 'C' : 'F'}
+        {Math.round(temperature)}°{temperatureUnit === "metric" ? "C" : "F"}
       </Text>
       <Text style={styles.condition}>{condition}</Text>
     </View>
@@ -19,16 +23,16 @@ export default function MainTemperature({ temperature, condition, temperatureUni
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    marginVertical: 40,
+    alignItems: "center",
+    marginBottom: 30,
   },
   temp: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 72,
-    fontWeight: '300',
+    fontWeight: "300",
   },
   condition: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 20,
     marginTop: 8,
   },

@@ -1,12 +1,12 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface CityCardProps {
   cityName: string;
   country: string;
   temperature: number;
   condition: string;
-  temperatureUnit: 'metric' | 'imperial';
+  temperatureUnit: "metric" | "imperial";
   getWeatherIcon: (condition: string) => string;
   onPress: () => void;
   onSetHome: () => void;
@@ -41,7 +41,7 @@ export default function CityCard({
         </View>
         <View style={styles.cityRight}>
           <Text style={styles.cityTemp}>
-            {Math.round(temperature)}°{temperatureUnit === 'metric' ? 'C' : 'F'}
+            {Math.round(temperature)}°{temperatureUnit === "metric" ? "C" : "F"}
           </Text>
           <View style={styles.actionButtons}>
             <TouchableOpacity
@@ -71,59 +71,55 @@ export default function CityCard({
 
 const styles = StyleSheet.create({
   cityCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     borderRadius: 16,
     padding: 20,
     marginBottom: 16,
-    width: '100%',
+    width: "100%",
     maxWidth: 400,
-    alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
+    alignSelf: "center",
     elevation: 8,
   },
   selectedCityCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
     borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: "rgba(255, 255, 255, 0.5)",
   },
   cityCardContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   cityLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 16,
   },
   cityIcon: {
     fontSize: 48,
   },
   cityName: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 22,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   cityCondition: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     opacity: 0.8,
     marginTop: 4,
   },
   cityRight: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
     gap: 12,
   },
   cityTemp: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 36,
-    fontWeight: '300',
+    fontWeight: "300",
   },
   actionButtons: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 8,
   },
   actionButton: {

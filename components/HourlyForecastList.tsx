@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
   hourlyTemp: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: "bold",
   },
 });

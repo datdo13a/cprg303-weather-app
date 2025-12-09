@@ -13,6 +13,7 @@ import { useWeather } from "@/context/weather-context";
 import { CurrentWeather, ForecastItem, HourlyForecast } from "@/types";
 import { getWeatherIcon } from "@/utils/weatherUtils";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -74,16 +75,22 @@ export default function CityDetail() {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Header with Back Button */}
-        <View style={styles.header}>
-          <View style={styles.headerTop}>
-            <TouchableOpacity
-              onPress={() => router.back()}
-              style={styles.backButton}
-            >
-              <Ionicons name="arrow-back" size={28} color="#fff" />
-            </TouchableOpacity>
+      <LinearGradient
+        colors={["#3D4E81", "#5753C9", "#6E7FF3"]}
+        locations={[0, 0.48, 1]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.container}
+      >
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
+          <Ionicons name="arrow-back" size={28} color="#fff" />
+        </TouchableOpacity>
+
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <View style={styles.cityTempContainer}>
             <WeatherHeader
               cityName={currentWeather.city}
               date={new Date().toLocaleDateString("en-US", {
@@ -93,25 +100,25 @@ export default function CityDetail() {
                 year: "numeric",
               })}
             />
+
+            <MainTemperature
+              temperature={currentWeather.weather.temperature}
+              condition={currentWeather.weather.condition}
+              temperatureUnit={temperatureUnit}
+            />
           </View>
-        </View>
 
-        <MainTemperature
-          temperature={currentWeather.weather.temperature}
-          condition={currentWeather.weather.condition}
-          temperatureUnit={temperatureUnit}
-        />
+          <HourlyForecastList
+            hourlyData={hourlyForecast}
+            temperatureUnit={temperatureUnit}
+            getWeatherIcon={getWeatherIcon}
+          />
 
-        <HourlyForecastList
-          hourlyData={hourlyForecast}
-          temperatureUnit={temperatureUnit}
-          getWeatherIcon={getWeatherIcon}
-        />
+          <WeeklyForecast forecast={forecast} getWeatherIcon={getWeatherIcon} />
+        </ScrollView>
 
-        <WeeklyForecast forecast={forecast} getWeatherIcon={getWeatherIcon} />
-      </ScrollView>
-
-      <Footer />
+        <Footer />
+      </LinearGradient>
     </View>
   );
 }
@@ -119,31 +126,26 @@ export default function CityDetail() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#2E5F7C",
   },
   scrollContent: {
     flexGrow: 1,
     alignItems: "center",
+    marginVertical: 10,
   },
   centerContent: {
     justifyContent: "center",
     alignItems: "center",
   },
-  header: {
-    paddingTop: 20,
-    paddingHorizontal: 24,
-    marginBottom: 20,
+  cityTempContainer: {
     alignItems: "center",
     width: "100%",
   },
-  headerTop: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 12,
-  },
   backButton: {
-    padding: 0,
+    position: "absolute",
+    top: 50,
+    left: 20,
+    zIndex: 10,
+    padding: 8,
   },
   errorText: {
     color: "#fff",

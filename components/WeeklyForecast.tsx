@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 12,
-    gap: 50,
+    gap: 25,
   },
   weeklyLeft: {
     flexDirection: "row",
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   weeklyDay: {
     color: "#fff",
     fontSize: 16,
+    fontWeight: "bold",
   },
   weeklyTempContainer: {
     flexDirection: "row",
@@ -76,5 +77,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 14,
     minWidth: 45,
+    fontWeight: "bold",
   },
 });

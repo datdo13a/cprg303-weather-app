@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface EmptyStateProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -8,10 +8,15 @@ interface EmptyStateProps {
   onAction?: () => void;
 }
 
-export default function EmptyState({ icon, message, actionLabel, onAction }: EmptyStateProps) {
+export default function EmptyState({
+  icon,
+  message,
+  actionLabel,
+  onAction,
+}: EmptyStateProps) {
   return (
     <View style={styles.container}>
-      <Ionicons name={icon} size={64} color="rgba(255, 255, 255, 0.5)" />
+      <Ionicons name={icon} size={64} color="white" />
       <Text style={styles.message}>{message}</Text>
       {actionLabel && onAction && (
         <TouchableOpacity style={styles.actionButton} onPress={onAction}>
@@ -25,32 +30,29 @@ export default function EmptyState({ icon, message, actionLabel, onAction }: Emp
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#2E5F7C',
-    paddingHorizontal: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    borderRadius: 20,
+    padding: 30,
   },
   message: {
-    color: 'rgba(255, 255, 255, 0.7)',
+    color: "white",
     fontSize: 16,
     marginTop: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   actionButton: {
     marginTop: 24,
-    backgroundColor: '#3B7FA0',
+    backgroundColor: "#fff",
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
     elevation: 8,
   },
   actionLabel: {
-    color: '#fff',
+    color: "#c6c6c6ff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
