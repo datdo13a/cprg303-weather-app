@@ -22,7 +22,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [savedLocations, setSavedLocations] = useState<SavedLocation[]>([]);
   const [temperatureUnit, setTemperatureUnitState] = useState<"metric" | "imperial">("metric");
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  const [selectedCity, setSelectedCityState] = useState<string>("Calgary");
+  const [selectedCity, setSelectedCityState] = useState<string>("");
 
   // Load saved data from AsyncStorage on mount
   useEffect(() => {

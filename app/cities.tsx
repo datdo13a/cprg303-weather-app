@@ -79,6 +79,10 @@ export default function Cities() {
     router.push(`/city/${cityName}`);
   };
 
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -120,9 +124,7 @@ export default function Cities() {
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}
         >
-          {loading ? (
-            <LoadingScreen />
-          ) : savedLocations.length === 0 ? (
+          {savedLocations.length === 0 ? (
             <EmptyState
               icon="location-outline"
               message="No saved cities yet. Search for a city to add it to your list."
@@ -168,6 +170,9 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 20,
     gap: 12,
+    width: "90%",
+    maxWidth: 400,
+    alignSelf: "center",
   },
   backButton: {
     padding: 4,
@@ -208,5 +213,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 16,
+    width: "90%",
+    maxWidth: 400,
+    alignSelf: "center",
   },
 });

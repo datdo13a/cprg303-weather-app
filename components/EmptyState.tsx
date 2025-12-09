@@ -30,30 +30,31 @@ export default function EmptyState({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(255, 255, 255, 0.2)",
     borderRadius: 20,
-    padding: 30,
+    padding: 20,
+    paddingVertical: 24,
   },
   message: {
     color: "white",
-    fontSize: 16,
-    marginTop: 16,
+    fontSize: 14,
+    marginTop: 12,
     textAlign: "center",
+    lineHeight: 20,
   },
   actionButton: {
-    marginTop: 24,
+    marginTop: 16,
     backgroundColor: "#fff",
-    paddingHorizontal: 24,
-    paddingVertical: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 8,
     ...SHADOW_STYLE,
   },
   actionLabel: {
     color: "#c6c6c6ff",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "600",
   },
 });

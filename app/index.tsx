@@ -3,6 +3,7 @@ import {
   fetchHourlyForecast,
   fetchWeatherByCity,
 } from "@/api/weather-service";
+import EmptyState from "@/components/EmptyState";
 import Footer from "@/components/Footer";
 import HourlyForecastList from "@/components/HourlyForecastList";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -15,7 +16,7 @@ import { getWeatherIcon } from "@/utils/weatherUtils";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View, Text } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 export default function Index() {
   const router = useRouter();
@@ -51,14 +52,16 @@ export default function Index() {
   };
 
   useEffect(() => {
-    loadWeatherData(selectedCity);
+    if (selectedCity) {
+      loadWeatherData(selectedCity);
+    }
   }, [selectedCity]);
 
   if (loading) {
     return <LoadingScreen />;
   }
 
-  if (!currentWeather) {
+  if (!selectedCity || !currentWeather) {
     return (
       <LinearGradient
         colors={["#3D4E81", "#5753C9", "#6E7FF3"]}
@@ -68,9 +71,14 @@ export default function Index() {
         style={styles.container}
       >
         <View style={[styles.container, styles.centerContent]}>
-          <Text style={styles.errorText}>No weather data available</Text>
-          <Text style={styles.date}>Check your API key configuration</Text>
+          <EmptyState
+            icon="home-outline"
+            message="No home city set. Search for a city and set it as your homepage."
+            actionLabel="Search Cities"
+            onAction={() => router.push("/search")}
+          />
         </View>
+        <Footer />
       </LinearGradient>
     );
   }

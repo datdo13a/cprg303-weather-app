@@ -8,7 +8,7 @@ export default function Footer() {
   const [menuVisible, setMenuVisible] = useState(false);
   const router = useRouter();
 
-  const handleNavigation = (path: string) => {
+  const handleNavigation = (path: "/" | "/cities" | "/search") => {
     setMenuVisible(false);
     router.push(path);
   };

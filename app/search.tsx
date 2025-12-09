@@ -85,6 +85,10 @@ export default function Search() {
     }
   };
 
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <LinearGradient
       colors={["#3D4E81", "#5753C9", "#6E7FF3"]}
@@ -141,9 +145,7 @@ export default function Search() {
       )}
 
       {/* Search Results */}
-      {loading ? (
-        <LoadingScreen />
-      ) : hasSearched ? (
+      {hasSearched ? (
         <ScrollView style={styles.resultsContainer}>
           {searchResults.length === 0 ? (
             <EmptyState
