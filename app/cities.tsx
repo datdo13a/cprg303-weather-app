@@ -183,12 +183,13 @@ const styles = StyleSheet.create({
   },
   searchBarText: {
     color: "#fff",
+    fontSize: 16,
     marginLeft: 8,
   },
   clearButtonContainer: {
     backgroundColor: "rgba(255, 255, 255, 0.25)",
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 12,
     borderRadius: 12,
     elevation: 8,
   },
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
   },
   clearButtonText: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "600",
   },
   scrollView: {
