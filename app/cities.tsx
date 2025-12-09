@@ -3,6 +3,7 @@ import CityCard from "@/components/CityCard";
 import EmptyState from "@/components/EmptyState";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
+import RecentSearchList from "@/components/RecentSearchList";
 import { useWeather } from "@/context/weather-context";
 import { SHADOW_NONE } from "@/utils/colors";
 import { getWeatherIcon } from "@/utils/weatherUtils";
@@ -11,11 +12,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 interface CityWeather {
@@ -34,6 +35,9 @@ export default function Cities() {
     temperatureUnit,
     setSelectedCity,
     clearLocations,
+    clearRecentSearches,
+    recentSearches,
+    addRecentSearch,
   } = useWeather();
   const [selectedCity, setLocalSelectedCity] = useState<string | null>(null);
   const [citiesWeather, setCitiesWeather] = useState<CityWeather[]>([]);
@@ -125,12 +129,24 @@ export default function Cities() {
           showsVerticalScrollIndicator={false}
         >
           {savedLocations.length === 0 ? (
-            <EmptyState
-              icon="location-outline"
-              message="No saved cities yet. Search for a city to add it to your list."
-              actionLabel="Add City"
-              onAction={() => router.push("/search")}
-            />
+            <>
+              {recentSearches.length > 0 && (
+                <RecentSearchList
+                  searches={recentSearches}
+                  onSelectSearch={(search) => {
+                    addRecentSearch(search);
+                    router.push("/search");
+                  }}
+                  onClear={clearRecentSearches}
+                />
+              )}
+              <EmptyState
+                icon="location-outline"
+                message="No saved cities yet. Search for a city to add it to your list."
+                actionLabel="Add City"
+                onAction={() => router.push("/search")}
+              />
+            </>
           ) : (
             citiesWeather.map((cityWeather) => (
               <CityCard

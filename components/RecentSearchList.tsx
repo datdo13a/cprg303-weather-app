@@ -1,6 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
 import {
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -21,7 +20,7 @@ export default function RecentSearchList({
   if (searches.length === 0) return null;
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Recent Searches</Text>
         <TouchableOpacity onPress={onClear}>
@@ -39,7 +38,7 @@ export default function RecentSearchList({
           <Ionicons name="arrow-forward" size={20} color="#fff" />
         </TouchableOpacity>
       ))}
-    </ScrollView>
+    </View>
   );
 }
 
@@ -48,6 +47,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     width: "90%",
     maxWidth: 400,
+    alignSelf: "center",
+    marginBottom: 20,
   },
   header: {
     flexDirection: "row",
