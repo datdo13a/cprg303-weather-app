@@ -75,6 +75,8 @@ export interface WeatherContextType {
   recentSearches: string[];
   addRecentSearch: (city: string) => void;
   clearRecentSearches: () => void;
+  selectedCity: string;
+  setSelectedCity: (city: string) => void;
 }
 
 export interface WeatherProviderProps {

@@ -1,10 +1,10 @@
 import {
+  SavedLocation,
   WeatherContextType,
   WeatherProviderProps,
-  SavedLocation,
 } from "@/types";
-import React, { createContext, useContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 // Create the Weather Context
 const WeatherContext = createContext<WeatherContextType | undefined>(undefined);

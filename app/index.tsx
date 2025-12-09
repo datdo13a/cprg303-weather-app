@@ -15,7 +15,7 @@ import { getWeatherIcon } from "@/utils/weatherUtils";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, Text } from "react-native";
 
 export default function Index() {
   const router = useRouter();
@@ -60,10 +60,18 @@ export default function Index() {
 
   if (!currentWeather) {
     return (
-      <View style={[styles.container, styles.centerContent]}>
-        {/* <Text style={styles.errorText}>No weather data available</Text>
-        <Text style={styles.date}>Check your API key or try again later</Text> */}
-      </View>
+      <LinearGradient
+        colors={["#3D4E81", "#5753C9", "#6E7FF3"]}
+        locations={[0, 0.48, 1]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.container}
+      >
+        <View style={[styles.container, styles.centerContent]}>
+          <Text style={styles.errorText}>No weather data available</Text>
+          <Text style={styles.date}>Check your API key configuration</Text>
+        </View>
+      </LinearGradient>
     );
   }
 

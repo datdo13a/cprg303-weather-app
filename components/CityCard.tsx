@@ -1,3 +1,4 @@
+import { SHADOW_STYLE } from "@/utils/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
     width: "100%",
     maxWidth: 400,
     alignSelf: "center",
-    elevation: 8,
+    ...SHADOW_STYLE,
   },
   selectedCityCard: {
     backgroundColor: "rgba(255, 255, 255, 0.25)",

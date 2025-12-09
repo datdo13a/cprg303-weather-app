@@ -4,6 +4,7 @@ import EmptyState from "@/components/EmptyState";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import { useWeather } from "@/context/weather-context";
+import { SHADOW_NONE } from "@/utils/colors";
 import { getWeatherIcon } from "@/utils/weatherUtils";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -196,8 +197,7 @@ const styles = StyleSheet.create({
   },
   clearButtonDisabled: {
     backgroundColor: "rgba(128, 128, 128, 0.3)",
-    shadowOpacity: 0,
-    elevation: 0,
+    ...SHADOW_NONE,
   },
   clearButtonText: {
     color: "#fff",

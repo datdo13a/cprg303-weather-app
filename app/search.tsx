@@ -5,7 +5,9 @@ import LoadingScreen from "@/components/LoadingScreen";
 import RecentSearchList from "@/components/RecentSearchList";
 import SearchBar from "@/components/SearchBar";
 import { useWeather } from "@/context/weather-context";
+import { SHADOW_NONE, SHADOW_STYLE } from "@/utils/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -84,7 +86,13 @@ export default function Search() {
   };
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={["#3D4E81", "#5753C9", "#6E7FF3"]}
+      locations={[0, 0.48, 1]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.container}
+    >
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
@@ -169,14 +177,13 @@ export default function Search() {
       ) : null}
 
       <Footer />
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#232323ff",
     alignItems: "center",
   },
   header: {
@@ -206,16 +213,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    ...SHADOW_STYLE,
   },
   searchButtonDisabled: {
     backgroundColor: "rgba(128, 128, 128, 0.3)",
-    shadowOpacity: 0,
-    elevation: 0,
+    ...SHADOW_NONE,
   },
   searchButtonText: {
     color: "#fff",
@@ -237,11 +239,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    ...SHADOW_STYLE,
   },
   resultLeft: {
     flexDirection: "row",

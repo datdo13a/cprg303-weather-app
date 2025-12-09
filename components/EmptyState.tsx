@@ -1,3 +1,4 @@
+import { SHADOW_STYLE } from "@/utils/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 8,
-    elevation: 8,
+    ...SHADOW_STYLE,
   },
   actionLabel: {
     color: "#c6c6c6ff",
