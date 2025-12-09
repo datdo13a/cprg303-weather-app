@@ -18,7 +18,7 @@ export default function Footer() {
         style={styles.floatingButton}
         onPress={() => setMenuVisible(true)}
       >
-        <Ionicons name="menu" size={28} color="#c6c6c6ff" />
+        <Ionicons name="menu" size={28} color="#fff" />
       </TouchableOpacity>
 
       <Modal
@@ -37,7 +37,7 @@ export default function Footer() {
               style={styles.menuItem}
               onPress={() => handleNavigation("/")}
             >
-              <Ionicons name="home" size={24} color="#c6c6c6ff" />
+              <Ionicons name="home" size={24} color="#fff" />
               <Text style={styles.menuText}>Home</Text>
             </TouchableOpacity>
 
@@ -45,7 +45,7 @@ export default function Footer() {
               style={styles.menuItem}
               onPress={() => handleNavigation("/cities")}
             >
-              <Ionicons name="list" size={24} color="#c6c6c6ff" />
+              <Ionicons name="list" size={24} color="#fff" />
               <Text style={styles.menuText}>Cities</Text>
             </TouchableOpacity>
 
@@ -53,7 +53,7 @@ export default function Footer() {
               style={styles.menuItem}
               onPress={() => handleNavigation("/search")}
             >
-              <Ionicons name="search" size={24} color="#c6c6c6ff" />
+              <Ionicons name="search" size={24} color="#fff" />
               <Text style={styles.menuText}>Search</Text>
             </TouchableOpacity>
 
@@ -61,7 +61,7 @@ export default function Footer() {
               style={[styles.menuItem, styles.closeButton]}
               onPress={() => setMenuVisible(false)}
             >
-              <Ionicons name="close" size={24} color="#c6c6c6ff" />
+              <Ionicons name="close" size={24} color="#fff" />
               <Text style={styles.menuText}>Close</Text>
             </TouchableOpacity>
           </View>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 30,
     right: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    backgroundColor: "rgba(52, 52, 52, 0.5)",
     width: 60,
     height: 60,
     borderRadius: 30,
@@ -96,12 +96,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   menuContainer: {
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
     borderRadius: 20,
     padding: 20,
     minWidth: 250,
-    borderWidth: 1,
-    borderColor: "rgba(0, 0, 0, 0.4)",
     marginBottom: 100,
     marginRight: 20,
   },
@@ -119,7 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   menuText: {
-    color: "#c6c6c6ff",
+    color: "#fff",
     fontSize: 18,
     fontWeight: "500",
   },

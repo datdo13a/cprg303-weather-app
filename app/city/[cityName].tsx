@@ -76,9 +76,10 @@ export default function CityDetail() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={["#e0c3fc", "#8ec5fc"]}
+        colors={["#3D4E81", "#5753C9", "#6E7FF3"]}
+        locations={[0, 0.48, 1]}
         start={{ x: 0, y: 0 }}
-        end={{ x: 0.5, y: 1 }}
+        end={{ x: 1, y: 1 }}
         style={styles.container}
       >
         <TouchableOpacity
